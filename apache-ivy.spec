@@ -4,7 +4,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        2.3.0
-Release:        4.15%{?dist}
+Release:        4.16%{?dist}
 Summary:        Java-based dependency manager
 
 License:        ASL 2.0
@@ -40,7 +40,7 @@ JavaDoc documentation for %{pkg_name}
 
 %prep
 %setup -q -n %{pkg_name}-%{version}
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 
 # Fix messed-up encodings
@@ -64,11 +64,11 @@ sed '/vfs.*=.*org.apache.ivy.plugins.resolver.VfsResolver/d' -i \
 %{?scl:EOF}
 
 %build
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 # Craft class path
 mkdir -p lib
-build-jar-repository lib ant jakarta-commons-httpclient jakarta-oro jsch 
+build-jar-repository lib ant/ant jakarta-commons-httpclient jakarta-oro jsch
 
 # Build
 ant /localivy /offline -Dtarget.ivy.bundle.version=%{version} -Dtarget.ivy.bundle.version.qualifier= -Dtarget.ivy.version=%{version} jar javadoc
@@ -76,7 +76,7 @@ ant /localivy /offline -Dtarget.ivy.bundle.version=%{version} -Dtarget.ivy.bundl
 
 
 %install
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 # Code
 install -d $RPM_BUILD_ROOT%{_javadir}
@@ -105,6 +105,9 @@ echo "<project><modelVersion>4.0.0</modelVersion><groupId>org.apache.ivy</groupI
 %doc LICENSE NOTICE
 
 %changelog
+* Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 2.3.0-4.16
+- maven33 rebuild #2
+
 * Sat Jan 09 2016 Michal Srb <msrb@redhat.com> - 2.3.0-4.15
 - maven33 rebuild
 
