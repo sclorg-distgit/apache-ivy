@@ -4,7 +4,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        2.3.0
-Release:        4.16%{?dist}
+Release:        4.17%{?dist}
 Summary:        Java-based dependency manager
 
 License:        ASL 2.0
@@ -105,6 +105,9 @@ echo "<project><modelVersion>4.0.0</modelVersion><groupId>org.apache.ivy</groupI
 %doc LICENSE NOTICE
 
 %changelog
+* Mon Feb 08 2016 Michal Srb <msrb@redhat.com> - 2.3.0-4.17
+- Fix BR on maven-local & co.
+
 * Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 2.3.0-4.16
 - maven33 rebuild #2
 
